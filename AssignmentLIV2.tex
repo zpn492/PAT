@@ -1,0 +1,425 @@
+\documentclass[12pt]{article}
+\usepackage{lingmacros}
+\usepackage{tree-dvips}
+\usepackage{listings}
+\usepackage{fancyref}
+\usepackage{url}
+\usepackage{amsmath}
+
+
+\frefformat{vario}{\fancyrefseclabelprefix}{%
+      \frefsecname\fancyrefdefaultspacing#1}
+\Frefformat{vario}{\fancyrefseclabelprefix}{%
+      \Frefsecname\fancyrefdefaultspacing#1}
+
+\begin{document}
+
+\title{Stochastic Processes in Life Insurance \\
+\large Assignment 2}
+\author{Benjamin Brandt Ohrt, zpn492}
+\maketitle
+
+\section{Introduction}
+This is the second of to two assignments in the course Stochastic Processes in Life Insurance at Copenhagen University. The course professor is Jesper Lund Pedersen. The course is held in blok 1, 2019.
+
+\section{Problem 1}
+
+This problem consider the "Standard multi-state policy" described in Theorem 16.2(and Theorem 16.4), that is, we consider a payment process B(t) driven by a finite state Markov process Z(t) given by.
+
+\begin{equation}
+dB(t) = b^{Z(t)}(t)dt + \sum_k b^{Z(t-)}(t)dN^k(t)
+\end{equation}
+Where $b^j(t)$ and $b^{jk}(t)$ are continuous functions. Note that there are no lump sum payments in the a state, that is, $\triangle B^j(t) = 0$. Moreover, we assume that the transition intensities $\mu^{jk}(t)$ also are continuous.
+
+\subsection{Question 1.A}
+
+\begin{equation}
+\begin{split}
+m^{(2)}(t) 	& = E[Y^2(0,n)|F(t)] 
+\end{split}
+\end{equation}
+
+By 14.4, we have that m(t) is on the form described below.
+We know, that it's an absolute continuous function, and by definition 2.10, 2. case and definition 3.8, and there is an integrable function with respect m(t) which is predictable and therefore adapted to filtration, thus a martingale.
+\begin{equation}
+\begin{split}
+m(t) 	& = \int_0^t {e^{-\int_0^s {r(v) dv}}dB(s) 
++ e^{-\int_0^t {r(v) dv}}} V(t)
+\end{split}
+\end{equation}
+Use that $(a+b)^2 = 2ab + a^2 + b^2$ and $a^m * a^n = a^{m+n}$
+\begin{equation}
+\begin{split}
+m^{(2)}(t) 	& = (\int_0^t {e^{-\int_0^s {r(v) dv}}dB(s) 
++ e^{-\int_0^t {r(v) dv}}} V(t))^2 \\
+ 		& = \\
+& 2 \int_0^t {e^{-\int_0^s {r(v) dv}}dB(s) e^{-\int_0^t {r(v) dv}}} V(t) \\
+& + (\int_0^t {e^{-\int_0^s {r(v) dv}}dB(s)})^2 \\
+& + (e^{-\int_0^t {r(v) dv}} V(t))^2  \\
+ 		& = \\
+& 2 \int_0^t {e^{-\int_0^s {r(v) dv}}dB(s) e^{-\int_0^t {r(v) dv}}} V(t) \\
+& + (\int_0^t {e^{-\int_0^s {r(v) dv}}dB(s)})^2 \\
+& + e^{-\int_0^t {r(v) dv}} e^{-\int_0^t {r(v) dv}} (V(t) V(t)) \\
+ 		& = \\
+& 2 \int_0^t {e^{-\int_0^s {r(v) dv}}dB(s) e^{-\int_0^t {r(v) dv}}} V(t) \\
+& + (\int_0^t {e^{-\int_0^s {r(v) dv}}dB(s)})^2 \\
+& + e^{-2\int_0^t {r(v) dv}} V^2(t)
+\end{split}
+\end{equation}
+
+\subsection{Question 1.B}
+\begin{equation}
+\begin{split}
+m^{(2)}(t) =
+& 2 \int_0^t {e^{-\int_0^s {r(v) dv}}dB(s) e^{-\int_0^t {r(v) dv}}} V(t) \\
+& + (\int_0^t {e^{-\int_0^s {r(v) dv}}dB(s)})^2 \\
+& + e^{-2\int_0^t {r(v) dv}} V^2(t)
+\end{split}
+\end{equation}
+
+Divide the above equation in three, and solve the equations with integration by parts. Use that $\int_0^t e^{-\int_0^s} a(s)$ can be written as $e^{-\int_0^t} \int_0^t a(s)$, $e^{-\int_0^t} (\int_0^{t-} a(s) + \int_{t-}^t a(s))$ and $\int_{t-}^t a(s) = a(t) - a(t-) = \triangle a(t)$
+\begin{equation}
+\begin{split}
+d(2 \int_0^t {e^{-\int_0^s {r(v) dv}}dB(s) e^{-\int_0^t {r(v) dv}}} V(t)) \\
+= 2e^{-\int_0^t {r(v) dv}}dB(t)e^{-\int_0^t {r(v) dv}}V(t) \\
++ 2 \int_0^{t-} e^{-\int_0^s r(v)dv} dB(s)(-r(t)e^{-\int_0^t r(v) dv}V(t)dt + e^{-\int_0^t r(v) dv} dV(t)) 
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+d((\int_0^t {e^{-\int_0^s {r(v) dv}}dB(s)})^2) \\
+= (\int_0^t {e^{-\int_0^s {r(v) dv}}dB(s)})e^{-\int_0^t {r(v) dv}}dB(t) \\
++ (\int_0^{t-} {e^{-\int_0^s {r(v) dv}}dB(s)})e^{-\int_0^t {r(v) dv}}dB(t) \\
+= (\int_0^{t-} {e^{-\int_0^s {r(v) dv}}dB(s)})e^{-\int_0^t {r(v) dv}}dB(t) \\
++ (e^{-\int_0^t {r(v) dv}}\int_{t-}^{t} {dB(s)})e^{-\int_0^t {r(v) dv}}dB(t) \\
++ (\int_0^{t-} {e^{-\int_0^s {r(v) dv}}dB(s)})e^{-\int_0^t {r(v) dv}}dB(t) \\
+= \triangle B(t) e^{-2\int_0^t {r(v) dv}}dB(t) \\
++ 2(\int_0^{t-} {e^{-\int_0^s {r(v) dv}}dB(s)})e^{-\int_0^t {r(v) dv}}dB(t) \\
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+d(e^{-2\int_0^t {r(v) dv}} V^{(2)}(t)) \\
+= -2r(t)e^{-2\int_0^t {r(v) dv}} V^{(2)}(t) + e^{-2\int_0^t {r(v) dv}} dV^{(2)}(t)
+\end{split}
+\end{equation}
+
+change $t-$ to $t$ for the dt part and merging all the equations which leads us to the result below.
+\begin{equation}
+\begin{split}
+dm^{(2)}(t) = 2e^{-\int_0^t {r(v) dv}}dB(t)e^{-\int_0^t {r(v) dv}}V(t) \\
++ 2 \int_0^{t} e^{-\int_0^s r(v)dv} dB(s)(-r(t)e^{-\int_0^t r(v) dv}V(t) dt) \\
++ \triangle B(t) e^{-2\int_0^t {r(v) dv}}dB(t) \\
++ 2(\int_0^{t-} {e^{-\int_0^s {r(v) dv}}dB(s)})e^{-\int_0^t {r(v) dv}}dB(t) \\
+-2r(t)e^{-2\int_0^t {r(v) dv}} V^{(2)}(t) \\
++ e^{-2\int_0^t {r(v) dv}} dV^{(2)}(t)
+\end{split}
+\end{equation}
+
+\newpage
+
+\subsection{Question 1.C}
+Multiply the result from 1.B with $e^{2\int_0^t r(v)dv}$ on both sides of the equality sign. And reduce the equation.
+\begin{equation}
+\begin{split}
+e^{2\int_0^t r(v)dv}dm^2(t) & = \\
+& + e^{2\int_0^t r(v)dv}2(\int_0^{t-} e^{-\int_0^s {r(v) dv}}dB(s))e^{-\int_0^t r(v)dv}dB(t) \\
+& + \triangle B(t)dB(t) \\
+& - 2 r(t) V^2(t)dt \\
+& + dV^2(t) \\
+& + 2 V(t)dB(t) \\
+& - e^{2\int_0^t r(v)dv}2(\int_0^{t-} e^{-\int_0^s {r(v) dv}}dB(s))e^{-\int_0^t r(v)dv}r(t)V(t)dt \\
+& + e^{2\int_0^t r(v)dv}2(\int_0^{t-} e^{-\int_0^s {r(v) dv}}dB(s))e^{-\int_0^t r(v)dv}dV(t) \\
+				& = \\
+& + \triangle B(t)dB(t) \\
+& - 2 r(t) V^2(t) \\
+& + dV^2(t) \\
+& + 2 V(t)dB(t) \\
+& + 2(\int_0^{t-} {e^{-\int_0^s {r(v) dv}}dB(s)}) e^{\int_0^t r(v)dv} (dB(t) + dV(t) - r(t)V(t)dt) \\
+& = \\
+& + (\triangle B(t) + 2V(t))dB(t) \\
+& - 2 r(t) V^2(t) \\
+& + dV^2(t) \\
+& + 2(\int_0^{t-} {e^{-\int_0^s {r(v) dv}}dB(s)}) e^{\int_0^t r(v)dv} (dB(t) + dV(t) - r(t)V(t)dt)
+\end{split}
+\end{equation}
+Note that $\triangle B(t) = \sum_k b^{Z(t-)k}(t)\triangle N^k(t)$ and that $\triangle N^k(t) * b^{Z(t)}(t)$ is zero, because N only counts 1, if in state $k \neq j$. Use that $\sum_k b^{Z(t-)k}(t) = \sum_j \sum_{k \neq j} b^{jk}(t)$. Use that $V^{Z(t)} = V^k$ when $dN^k(t)$
+\begin{equation}
+\begin{split}
+(\triangle B(t) + 2V(t))dB(t) & = \\
+& (\triangle B(t) + 2V^{Z(t)}(t))(b^{Z(t)}(t)dt + \sum_k b^{Z(t-)k}(t)dN^k(t)) \\
+& = \\
+& \triangle B(t)(b^{Z(t)}(t)dt + \sum_k b^{Z(t-)k}(t)dN^k(t)) \\ & + (2V^{Z(t)}(t)b^{Z(t)}(t)dt + \sum_k 2V^{Z(t)}(t)b^{Z(t-)k}(t)dN^k(t)) \\
+& = \\
+& \sum_j 1_{\{Z(t-)=j\}} (2V^j(t)b^{j}(t)dt + \sum_{k \neq j} (b^{jk}(t) + 2V^k(t))b^{jk}(t)dN^k(t)) \\
+& = \\
+& 2 \sum_j 1_{\{Z(t-)=j\}} V^j(t)b^{j}(t)dt + \sum_{k} (b^{Z(t-)}(t) + 2V^k(t))b^{Z(t-)}(t)dN^k(t))
+\end{split}
+\end{equation}
+Insert into the equation before.
+\begin{equation}
+\begin{split}
+e^{2\int_0^t r(v)dv}dm^2(t) & = \\
+& + dV^2(t) \\
+& - 2 r(t) V^2(t) \\
+& + 2 \sum_j 1_{\{Z(t-)=j\}} V^j(t)b^{j}(t)dt + \sum_{k} (b^{Z(t-)}(t) + 2V^k(t))b^{Z(t-)}(t)dN^k(t)) \\
+& + 2(\int_0^{t-} {e^{-\int_0^s {r(v) dv}}dB(s)}) e^{\int_0^t r(v)dv} (dB(t) + dV(t) - r(t)V(t)dt)
+\end{split}
+\end{equation}
+
+\newpage
+
+\subsection{Question 1.E}
+By proposition 16.4, page. 55.
+\begin{equation}
+\begin{split}
+V_j^{(2)}(t) & = (2r(t)+\mu(t))V_j^{(2)}(t) - 2b^j(t)V_j(t)-\sum_{k\neq j}\mu^{jk}(t)\sum_{p=0}^2\binom{2}{p}(b^{jk(2)}(t)V^{k(2-p)}(t)) \\
+& = 2r(t)V_j^{(2)}(t) - 2b^j(t)V_j(t)-\sum_{k\neq j}\mu^{jk}(t)(b^{jk(2)}(t) + b^{jk}(t)V^{k}(t) + V^{k(2)}(t) - V_j^{(2)}(t)) 
+\end{split}
+\end{equation}
+
+\newpage
+
+\subsection{Question 1.F}
+
+\begin{equation}
+\begin{split}
+Var_j(t) & = V_j^{(2)}(t) - (V_j(t))^2
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+dV_j(t) = r(t)V_j(t) - b^j(t) - \sum_{k \neq j} \mu^{jk}(t) (b^{jk}(t) + V^k(t) - V^j(t))
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+dV_j^{(2)}(t) & = 
+ 2r(t)V_j^{(2)}(t) - 2b^j(t)V^j(t) - \sum_{k \neq j} \mu^{jk}(t) (b^{jk(2)}(t) + 2b^{jk}V^k(t) + V^{k(2)}(t) - V^{j(2)}(t)) \\ 
+& = (2r(t)+\mu(t))V_j^{(2)}(t) - 2b^j(t)V^j(t) - \sum_{k \neq j} \mu^{jk}(t) (b^{jk(2)}(t) + 2b^{jk}V^k(t) + V^{k(2)}(t)(t)) 
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+R^{jk(2)}(t) = b^{jk(2)}(t) + V^{k(2)}(t) - V^{j(2)}(t) + 2b^{jk}V^k - 2b^{jk}V^j - 2V^kV^j
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+(-2) V_j(t)dV_j(t) & = \\
+& (-2) V_j(t) (r(t)V_j(t) - b^j(t) - \sum_{k \neq j} \mu^{jk}(t) (b^{jk}(t) + V^k(t) - V^j(t))) \\
+& = (-2r(t)-\mu(t))V_{j(2)}(t) + 2b^j(t)V_j(t) \\
+& - \sum_{k \neq j} \mu^{jk}(t) (-2b^{jk}(t)V^j(t) - 2V^k(t)V^j(t))-V_{j(2)}(t))
+\end{split}
+\end{equation}
+
+Search and replace variance and $R^{jk(2)}$. See that $V^{k(2)}(t) - (V^j(t))^2$ can be seen as $V^{k(2)}(t) - (V^k(t))^2 = var_k(t)$
+\begin{equation}
+\begin{split}
+dVar_j(t) 	& = d(V_j^{(2)}(t) - (V_j(t))^2) \\
+			& = dV_j^{(2)}(t) - 2V_j(t)dV_j(t) \\
+			\\
+			& = \\
+			& 2r(t)(V^{j(2)(t)}-(V_j(t))^2) \\
+			& - \sum_{k \neq j} \mu^{jk}(t) ( b^{jk(2)}(t) \\ 
+			& + V^{k(2)}(t) - V^{j(2)}(t) - 2V^j(t)V^k(t) - 2(V^j(t))^2+2b^{jk}(V^k(t) - V^j(t)) ) \\
+			& = \\
+			& (2r(t) + \mu(t))var_j(t) \\
+			& - \sum_{k \neq j} \mu^{jk}(t) ( b^{jk(2)}(t) \\ 
+			& + V^{k(2)}(t) - 2V^j(t)V^k(t) - (V^j(t))^2+2b^{jk}(V^k(t) - V^j(t)) ) \\
+			& = \\
+			& (2r(t) + \mu(t))var_j(t) \\
+			& - \sum_{k \neq j} \mu^{jk}(t) ( b^{jk(2)}(t) \\ 
+			& + var_k(t) - 2V^j(t)V^k(t) + 2b^{jk}(V^k(t) - V^j(t)) ) \\
+			& = \\
+			& (2r(t) + \mu(t))var_j(t) - \sum_{k \neq j} \mu^{jk}(t) ( R^{jk(2)}(t) + var_k(t) ) \\
+			& = \\
+			& 2r(t)var_j(t) - \sum_{k \neq j} \mu^{jk}(t) ( R^{jk(2)}(t) + var_k(t) - var_j(t) )
+\end{split}
+\end{equation}
+
+We see, that the equation looks like Thiele and conclude, we just replace $var$ and $R^2$ with the original $v$ and $R$ 
+
+\begin{equation}
+\begin{split}
+var_j(t) = \int_t^n {e^{-\int_t^s{2r(v)dv}} \sum_k p^{jk}(t,s)\sum_{k\neq l} \mu^{kl}(s)(R^{kl})^2(s)ds}
+\end{split}
+\end{equation}
+
+\section{Problem 2}
+
+\subsection{Question 2.A}
+By page 63, we have differential equations for $f^j(t)$ and $g^j(t)$
+\begin{equation}
+\begin{split}
+df^j(t) & = r(t)f^j(t) - b^j(t) - g^j(t)c_j(t) 
+\\ & - \sum_{k\neq j} \mu^{jk}(t) (bj^{jk}(t) + c^{jk}(t)g^k(t) + f^k(t) - f^j(t)) \\
+\end{split}
+\end{equation}
+
+Compute f(t) and g(t) in the survival model with two states, alive(0) and dead(1).
+\begin{equation}
+\begin{split}
+df^0(t) & = r(t)f^0(t) - b^0(t) - g^0(t)c_0(t) 
+\\ & - \sum_{k\neq j} \mu^{01}(b^{01}(t) + c^{01}(t)g^1(t) + f^1(t) - f^0(t))
+\\ c_{01}(t) & = -(b^{01}(t) + V^{1*}(t) - V^{0*}(t))
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+df^0(t) & = r(t)f^0(t) - b^0(t) - g^0(t)c_0(t) 
+\\ & - \sum_{k\neq j} \mu^{01}(b^{01}(t) + c^{01}(t)g^1(t) + f^1(t) - f^0(t))
+\\ & = r(t)f^0(t) - b^0(t) - g^0(t)c_0(t) 
+\\ & - \mu^{01}(b^{01}(t) + c^{01}(t)g^1(t) + f^1(t) - f^0(t))
+\end{split}
+\end{equation}
+Assume, that the insurance company which issues the policy has no future liabilities within state of death(1). Why $g^1(t) = 0$ and $f^1(t) = 0$. 
+
+\begin{equation}
+\begin{split}
+df^0(t) & = r(t)f^0(t) - b^0(t) - g^0(t)c_0(t) - \mu^{01}b^{01}(t) + \mu^{01}f^0(t)
+\\ & = (r(t) + \mu(t))f^0(t) - b^0(t) - g^0(t)c_0(t) - \mu^{01}(t)b^{01}(t)
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+f^0(t) & = \int_t^n e^{-\int_t^s(r(v)+\mu(v))dv} (b^0(s) + g^0(s)c_0(s) + \mu^{01}(s)b^{01}(s))ds
+\end{split}
+\end{equation}
+
+Where $f^0(n) = 0$.
+
+\begin{equation}
+\begin{split}
+dg^j(t) & = (q^j(t) + \sum_{k\neq j}
+\mu^{jk}(t) q^{jk}(t)) g^j(t) -q^j(t) \\
+& - \sum_{k\neq j}(1-q^{jk}(t))\mu^{jk}(t)(\frac{q^{jk}(t)}{1-q^{jk}(t)}+g^k(t)-g^j(t))
+\end{split}
+\end{equation}
+
+We know, that transitions $q^{01}(t) = 0$ for all $t$ and $g^1(t) = 0$ for all $t$
+\begin{equation}
+\begin{split}
+dg^0(t) & = (q^0(t) + 
+\mu^{01}(t) q^{01}(t)) g^0(t) -q^0(t) \\
+& - (1-q^{01}(t))\mu^{01}(t)(\frac{q^{01}(t)}{1-q^{01}(t)}+g^1(t)-g^0(t)) \\
+& = (q^0(t) + \mu^{01}(t) q^{01}(t) + (1-q^{01}(t))\mu^{01}(t)) g^0(t) -q^0(t) - \mu^{01}(t)q^{01}(t) \\
+& = (q^0(t) + \mu^{01}(t))\mu^{01}(t)) g^0(t) -q^0(t) - \mu^{01}(t)q^{01}(t) 
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+g^0(t) = \int_t^n e^{-\int_t^s(q^0(v) + \mu^{01}(v))dv} q^0(s)ds
+\end{split}
+\end{equation}
+
+Where $q^j(t)$ $0 <= q^{jk}(t) < 1$
+
+\newpage
+
+\section{Appendix}
+
+\subsection{Appendix - Question 2.A}
+\subsection{Question 2.A}
+By page 60. Contribution function is on the following form. And by page 63, we have differential equations for $f^j(t)$ and $g^j(t)$
+\begin{equation}
+\begin{split}
+c_j(t) & = (r(t)-r^*(t))V_j^*(t) + \sum_{k\neq j}(b^{jk}(t)+V^{*k}(t) - V^{j*}(t)) \\
+c_{jk}(t) & = -(b^{jk}(t) + V^{k*}(t) - V^{j*}(t)) \\ \\
+df^j(t) & = r(t)f^j(t) - b^j(t) - g^j(t)c_j(t) 
+\\ & - \sum_{k\neq j} \mu^{jk}(t) (bj^{jk}(t) + c^{jk}(t)g^k(t) + f^k(t) - f^j(t)) \\
+\end{split}
+\end{equation}
+
+\subsection{Appendix - Question 1.B}
+Use integration by parts, and use, that $\triangle m(t) = m(t) - m(t-)$, and $m(t) = \triangle m(t) + m(t-)$
+\begin{equation}
+\begin{split}
+dm(t) & = e^{-\int_0^t r(v)dv}(dB(t) + dV(t) - r(t)V(t)dt) \\
+dm^2(t) & = d(m(t)m(t)) \\
+		& = dm(t)m(t) + m(t-)dm(t) \\
+		& = dm(t)(m(t) + m(t-)) \\
+		& = dm(t)(\triangle m(t) + 2 m(t-))
+\end{split}
+\end{equation}
+
+Split $m(t)$ in $B^"(t) = \int_0^t e^{-\int_0^s {r(v) dv}}dB(s)$ and 
+$V^"(t) = e^{-\int_0^t {r(v) dv}} V(t)$. Now solve $dm(t) \triangle m(t)$ and $dm(t) 2B^"(t-)$ and $dm(t) 2V^"(t-)$, where $dm(t)$
+
+\begin{equation}
+\begin{split}
+dm(t) 2B^"(t-) & = e^{-\int_0^t r(v)dv}(dB(t) + dV(t) - r(t)V(t)dt) 2\int_0^{t-} e^{-\int_0^s {r(v) dv}}dB(s)
+\end{split}
+\end{equation}
+See that $dm^2(t) = 2 \int_0^t m(s)dm(s)$ and $dV^2(t) = 2 V(t)dV(t)$
+
+\begin{equation}
+\begin{split}
+dm(t) 2V^"(t-) 	& = e^{-\int_0^t r(v)dv}(dB(t) + dV(t) - r(t)V(t)) 2e^{-\int_0^t {r(v) dv}} V(t) \\
+				& = 2 e^{-2\int_0^t r(v)dv} V(t) (dB(t) + dV(t) - r(t)V(t)dt) \\
+				& = 2 e^{-2\int_0^t r(v)dv} (V(t)dB(t) - r(t)V^2(t)) + e^{-2\int_0^t r(v)dv}dV^2(t)
+\end{split}
+\end{equation}
+See that $V^"(t) - V^"(t-) = 0$ And see that $B^"(t) - B^"(t-) = \int_0^t e^{-\int_0^s{r(v)dv}} dB(s) - dB(s-) = e^{-\int_0^t{r(v)dv}} \int_0^t dB(t) - dB(t-) = e^{-\int_0^t{r(v)dv}}  \triangle B(t)$ And no jump payments in $dV(t)$ or $V(t)$
+\begin{equation}
+\begin{split}
+dm(t) \triangle m(t) 	& = (e^{-\int_0^t r(v)dv}(dB(t) + dV(t) - r(t)V(t)dt)) (B^"(t)+V^"(t) - B^"(t-)-V^"(t-))	\\
+						& = (e^{-\int_0^t r(v)dv}(dB(t)) e^{-\int_0^t{r(v)dv}}  \triangle B(t) \\
+& = e^{-2\int_0^t r(v)dv}dB(t)  \triangle B(t)				
+\end{split}
+\end{equation}
+And see that $r(t)V(t)dt$ is continuous therefore we can exchange $t-$ with $t$.
+\begin{equation}
+\begin{split}
+dm^2(t) & = \\ 
+& = dm(t)B^"(t) + dm(t)V^"(t) + dm(t)\triangle m(t) \\
+& e^{-\int_0^t r(v)dv}(dB(t) + dV(t) - r(t)V(t)dt) 2\int_0^{t-} e^{-\int_0^s {r(v) dv}}dB(s) \\
+& + 2 e^{-2\int_0^t r(v)dv} (V(t)dB(t) - r(t)V^2(t)) + e^{-2\int_0^t r(v)dv}dV^2(t) \\
+& + e^{-2\int_0^t r(v)dv}dB(t)  \triangle B(t) \\	
+& = \\ 
+& 2(\int_0^{t-} e^{-\int_0^s {r(v) dv}}dB(s))e^{-\int_0^t r(v)dv}dB(t) \\
+& + e^{-2\int_0^t r(v)dv} \triangle B(t)dB(t) \\
+& - 2e^{-2\int_0^t r(v)dv} r(t) V^2(t) \\
+& + e^{-2\int_0^t r(v)dv} dV^2(t) \\
+& + 2e^{-2\int_0^t r(v)dv} V(t)dB(t) \\
+& -2(\int_0^{t-} e^{-\int_0^s {r(v) dv}}dB(s))e^{-\int_0^t r(v)dv}r(t)V(t)dt \\
+& + 2(\int_0^{t-} e^{-\int_0^s {r(v) dv}}dB(s))e^{-\int_0^t r(v)dv}dV(t) 		
+\end{split}
+\end{equation}
+
+\subsection{Appendix - Question 1.C}
+\begin{equation}
+\begin{split}
+dm^2(t) & = \\
+& + 2(\int_0^{t-} e^{-\int_0^s {r(v) dv}}dB(s))e^{-\int_0^t r(v)dv}dB(t) \\
+& + e^{-2\int_0^t r(v)dv} \triangle B(t)dB(t) \\
+& - 2e^{-2\int_0^t r(v)dv} r(t) V^2(t)dt \\
+& + e^{-2\int_0^t r(v)dv} dV^2(t) \\
+& + 2e^{-2\int_0^t r(v)dv} V(t)dB(t) \\
+& -2(\int_0^{t} e^{-\int_0^s {r(v) dv}}dB(s))e^{-\int_0^t r(v)dv}r(t)V(t) \\
+& + 2(\int_0^{t-} e^{-\int_0^s {r(v) dv}}dB(s))e^{-\int_0^t r(v)dv}dV(t) 
+\end{split}
+\end{equation}
+
+\newpage
+
+\begin{thebibliography}{9}
+
+\bibitem{jl}
+  Jesper Lund Pedersen.
+  \textit{Stochastic Processes in Life Insurance: The Dynamic Approach}.
+  Department of Mathematical Sciences.
+
+\end{thebibliography}
+
+
+\end{document}

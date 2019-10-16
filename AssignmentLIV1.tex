@@ -1,0 +1,316 @@
+\documentclass[12pt]{article}
+\usepackage{lingmacros}
+\usepackage{tree-dvips}
+\usepackage{listings}
+\usepackage{fancyref}
+\usepackage{url}
+\usepackage{amsmath}
+
+
+\frefformat{vario}{\fancyrefseclabelprefix}{%
+      \frefsecname\fancyrefdefaultspacing#1}
+\Frefformat{vario}{\fancyrefseclabelprefix}{%
+      \Frefsecname\fancyrefdefaultspacing#1}
+
+\begin{document}
+
+\title{Stochastic Processes in Life Insurance \\
+\large Assignment 1}
+\author{Benjamin Brandt Ohrt, zpn492}
+\maketitle
+
+\section{Introduction}
+This is the first of to two assignments in the course Stochastic Processes in Life Insurance at Copenhagen University. The course professor is Jesper Lund Pedersen. The course is held in blok 1, 2019.
+
+\section{Problem}
+In this assignment we look at a multi-state contract, with two states Alive=0 and Dead=1. Let $Z(t)$ denote the state of the policy at time $t$. The contract is issued at time 0 and expires at time $n$. We assume that the policy commencing in state 0, that is $Z(0)$ = 0. Assume $Z(t)$ is a continuous time Markov chain with transition intensity $\mu_{01}(t)$ = $\mu(t)$ where $\mu(t)$ is a Borel function bounded on bounded intervals. Assume interest rate $r(t)$ is deterministic. The life length of the policy holder is the jump time $T_x$ and the survival probability is $p_{00}(s,t)$ $= e^{-\int_{s}^{t}\mu(v)dv}$.
+
+\newpage
+
+\subsection{a - term insurance}
+\textbf{Interpretation of the payment process}.
+The payment process below is a term insurance, which is a payment upon the death of the policy holder if and only if the time of death $T_x$ is before the expiration of the policy at time $n$.
+\begin{equation}
+B(t) = N(t) = 1_{[T_x,\infty)}(t)
+\end{equation}
+\textbf{Intensity process of the payment process}.
+By Proposition 12.9\cite{jl}, we know that N(t) have a the intensity process $\lambda^B(t)$. Where the hazzard transition intensity $\alpha$ is $\mu$ known from the problem definition.
+
+\begin{equation}
+\lambda^B(t) = \mu(t) * 1_{\{Z(t-)=0\}}
+\end{equation}
+\textbf{Compute the reserve}. From 14.3\cite{jl} we know that the reserve $V(t)$ is:
+
+\begin{equation}
+V(t) = \int_{t}^{n}e^{-\int_{t}^{u}}E[\lambda^B(u)|F(t)]du
+\end{equation}
+
+\begin{tabular}{l|p{5cm}}
+$= \int_{t}^{n}e^{-\int_{t}^{u}r(v)dv}E[\mu(u) * 1_{\{Z(u-)=0\}}|F(t)]du$ & insert the intensity process. \\
+\hline
+$= \int_{t}^{n}e^{-\int_{t}^{u}r(v)dv}\mu(u) E[1_{\{Z(u-)=0\}}|F(t)]du$ & If $\mu(t)$ is deterministic. \\
+\hline
+$= \int_{t}^{n}e^{-\int_{t}^{u}r(v)dv}\mu(u) E[1_{\{Z(u)=0\}}|F(t)]du$ & When we integrate with $du$ $u-$ can be replaced with $u$. \\
+\hline
+$= \int_{t}^{n}e^{-\int_{t}^{u}r(v)dv}\mu(u) p_{00}(t,u) du$ &  $1_{\{Z(u)=0\}}$ can be seen as the survival up to time u. Therefore replaceable with $p_{00}(t,u)$ from the problem definition.\\
+\hline
+$= \int_{t}^{n}e^{-\int_{t}^{u}r(v)dv}\mu(u) e^{-\int_{t}^{u}\mu(v)dv} du$ & We can replace $p_{00}(t,u)$. \\
+\hline
+$= \int_{t}^{n}e^{-\int_{t}^{u}(r(v)+\mu(v))dv}\mu(u) du$ & Merge exponential expressions.
+\end{tabular}
+
+\begin{equation}
+V(t) = \int_{t}^{n}e^{-\int_{t}^{u}(r(v)+\mu(v))dv}\mu(u) du
+\end{equation}
+
+\newpage
+
+\subsection{b - life annuity}
+\textbf{Interpretation of the payment process}. The payment process below is a life annuity, which is a continuous payment from time 0 to the policy expires or the policy holder dies $min(T_x,n)$ what ever comes first.
+
+\begin{equation}
+B(t) = \int_{0}^{t}1_{\{Z(t)=0\}}ds
+\end{equation}
+\textbf{Intensity process of the payment process}. We look at a probability for payment while staying in state 0. therefore we argue, at that for every time $s$, $0<s<=t$, there is a risk of leaving state 0 and jumping to state 1, stopping the payment. We could look at this at $p_{00}(s,t)$ and again doing this for each couple $(s,t)$ before expiration time $n$. We see that B(t) is continuous predictable process and therefore an intensity process in its self.
+
+\begin{equation}
+\lambda^B(t) = \int_{t}^{n} p_{00}(s,t)1_{\{Z(t)=0\}}
+\end{equation}
+\textbf{The reserve is given}. 16.3\cite[p.51]{jl}
+\begin{equation}
+V(t) = \int_{t}^{n} e^{-\int_{t}^{u}r(v)dv} E[\lambda^B(u)|F(t)]du
+\end{equation}
+
+\begin{equation}
+\begin{split}
+\int_{t}^{n}e^{-\int_{t}^{u}r(v)dv} p_{00}(t,u)1_{\{Z(t)=0\}} du = V(t)  \\
+\int_{t}^{n}e^{-\int_{t}^{u}r(v)dv} e^{-\int_{t}^{u}\mu(v)dv}1_{\{Z(t)=0\}} du = V(t) \\
+\int_{t}^{n}e^{-\int_{t}^{u}(r(v)+\mu(v))dv}1_{\{Z(t)=0\}} du = V(t) \\
+\end{split}
+\end{equation}
+
+\newpage
+
+\subsection{c - Compute the dynamics of the statewise reserves given in Theorem 16.1}
+
+We get Thiele's integral equation, as shown below, and want to derive Thiele's differential equation $dV^j(t)$
+\begin{equation}
+\begin{split}
+V^j(t) = \int_{t}^{n} e^{-\int_{t}^{u} (\mu^j(v) + r(v))dv} (b^j(u) + \sum_{k\neq j} \mu^{jk}(u) (b^{jk}(u)+V^k(u))du \\
++ \sum_{t < s < n} e^{-\int_{t}^{u} (\mu^j(v) + r(v))dv} \triangle B^{j}(u)
+\end{split}
+\end{equation}
+
+We assume, that their no lumpsum-payments, thus $\triangle B^{j}(t) = 0$. And the $r(t), \mu(t), b^j(t), b^{jk}$ is continuous.
+
+\begin{equation}
+\begin{split}
+V^j(t) = \int_{t}^{n} e^{-\int_{t}^{u} (\mu^j(v) + r(v))dv} (b^j(u) + \sum_{k\neq j} \mu^{jk}(u) (b^{jk}(u)+V^k(u))du \\
+\end{split}
+\end{equation} 
+Using the hint $-\int_{t}^{u} = \int_{0}^{t} * (-1)*\int_{0}^{u}$. And divide the equation into three parts.
+
+\begin{equation}
+\begin{split}
+V^j(t) = e^{\int_{0}^{t} (\mu^j(v) + r(v))dv} \int_{t}^{n} e^{-\int_{0}^{u} (\mu^j(v) + r(v))dv} (b^j(u) + \sum_{k\neq j} \mu^{jk}(u) (b^{jk}(u)+V^k(u))du
+\end{split}
+\end{equation} 
+
+\begin{equation}
+\begin{split}
+e^{\int_{0}^{t} (\mu^j(v) + r(v))dv} = a(t) \\
+e^{-\int_{0}^{u} (\mu^j(v) + r(v))dv} (b^j(u) + \sum_{k\neq j} \mu^{jk}(u) (b^{jk}(u)+V^k(u))du = b(u) \\
+-\int_{n}^{t} b(u) = c(t)
+\end{split}
+\end{equation} 
+We want to use integration by parts $d(f(t)g(t)) = f(t)dg(t)+g(t-)df(t)$, so we calculate the dynamics of $a(t)$ and $c(t)$.
+ 
+\begin{equation}
+\begin{split}
+(\mu^j(t) + r(t)) e^{\int_{0}^{t} (\mu^j(v) + r(v))dv} = da(t) \\
+(-1) * b(t) = dc(t)
+\end{split}
+\end{equation}  
+Solving $da(t)c(t)$
+
+\begin{equation}
+\begin{split}
+(\mu^j(t) + r(t)) e^{\int_{0}^{t} ((\mu^j(v) + r(v))dv} \\
+\int_{t}^{n} e^{-\int_{0}^{u} (\mu^j(v) + r(v))dv} (b^j(u) + \sum_{k\neq j} \mu^{jk}(u) (b^{jk}(u)+V^k(u))du = da(t)c(t) \\
+(\mu^j(t) + r(t)) \\ 
+\int_{t}^{n} e^{-\int_{t}^{u} (\mu^j(v) + r(v))dv} (b^j(u) + (\mu^j(t) + r(t)) \sum_{k\neq j} \mu^{jk}(u) (b^{jk}(u)+V^k(u))du = da(t)c(t) \\
+(\mu^j(t) + r(t)) V^j(t) = da(t)c(t)
+\end{split}
+\end{equation}  
+
+Solving $a(t-)dc(t)$
+
+\begin{equation}
+\begin{split}
+e^{\int_{0}^{t-} (\mu^j(v) + r(v))dv} * (-1) * b(t) = a(t-)dc(t) \\
+e^{\int_{0}^{t-} (\mu^j(v) + r(v))dv} * (-1) * e^{-\int_{0}^{t} (\mu^j(v) + r(v))dv} (b^j(t) + \sum_{k\neq j} \mu^{jk}(t) (b^{jk}(t)+V^k(t))dt = a(t-)dc(t) \\
+(-1) * e^{-\int_{t-}^{t} (\mu^j(v) + r(v))dv} (b^j(t) + \sum_{k\neq j} \mu^{jk}(t) (b^{jk}(t)+V^k(t))dt = a(t-)dc(t) \\
+(-1) * 1 * (b^j(t) + \sum_{k\neq j} \mu^{jk}(t) (b^{jk}(t)+V^k(t))dt = a(t-)dc(t) \\
+(-b^j(t) - \sum_{k\neq j} \mu^{jk}(t) (b^{jk}(t)+V^k(t))dt = a(t-)dc(t)
+\end{split}
+\end{equation}   
+Combining $da(t)c(t)$ and $a(t-)dc(t)$
+
+\begin{equation}
+\begin{split}
+(\mu^j(t) + r(t)) V^j(t) + 
+(-b^j(t) - \sum_{k\neq j} \mu^{jk}(t) (b^{jk}(t)+V^k(t))dt 
+\\ = da(t)c(t) + a(t-)dc(t) \\
+r(t) V^j(t) + 
+(-b^j(t) - \sum_{k\neq j} \mu^{jk}(t) (b^{jk}(t)+V^k(t)-V^j(t))dt 
+\\ = da(t)c(t) + a(t-)dc(t)
+\\ = dV^j(t)
+\end{split}
+\end{equation}   
+
+\newpage
+
+\subsection{d - Show the dynamics of the predictable compensator of the payment process is given by}
+
+\begin{equation}
+\begin{split}
+d\Lambda^{B}(t) = \sum_j1_{\{Z(t-)=j\}}dB^j(t) + \sum_kb^{Z(t-)k}(t)\mu^{Z(t-)k}(t)1_{\{(Z(t-)\neq k\}}dt \\
+= \sum_j1_{\{Z(t-)=j\}}(dB^j(t) + \sum_{k\neq j}b^{jk}(t)\mu^{jk}(t)dt)
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+dB(t) = \sum_j1_{\{Z(t)=j\}}dB^j(t) + \sum_kb^{Z(t-)k}(t)dN^{k}(t)
+\end{split}
+\end{equation}
+By proposition 10.6, $dB(t)$ have the intensity process as the following informal states:
+
+\begin{equation}
+\begin{split}
+\lambda^B (t) dt = E[dB(t)|F(t-)] \\
+= b^{Z(t-)}(t)dt + \sum_kb^{Z(t-)k}(t)E[dN^{k}(t)|F(t-)] \\
+= (b^{Z(t-)}(t) + \sum_kb^{Z(t-)k}(t)\mu^{Z(t-)k}1_{\{Z(t-)\neq j\}})dt
+\end{split}
+\end{equation}
+By definition 9.11 and 9.14, we have that,$\lambda^B(t)dt=E[dX(t)|F(t-)]=d\Lambda^B(t)$
+
+\begin{equation}
+\begin{split}
+d\Lambda^B(t) = (b^{Z(t-)}(t) + \sum_kb^{Z(t-)k}(t)\mu^{Z(t-)k}1_{\{Z(t-)\neq j\}})dt \\
+d\Lambda^B(t) = (\sum_j1_{\{Z(t-)=j\}}b^j(t) + \sum_{k\neq j}b^{jk}(t)\mu^{jk}1_{\{Z(t-)= j\}})dt
+\end{split}
+\end{equation}
+We know that $dB^j(t) = b^j(t)dt + B^j(t) - B^j(t-)$ where $\triangle B^j(t) = B^j(t) - B^j(t-)$ is a jump-payment, and is equal to zero, in the differential equation, thus $dB^j(t) = b^j(t)dt$
+
+\begin{equation}
+\begin{split}
+d\Lambda^B(t) = \sum_j1_{\{Z(t-)=j\}}dB^j(t) + \sum_{k\neq j}b^{jk}(t)\mu^{jk}1_{\{Z(t-)= j\}}dt \\
+= \sum_j1_{\{Z(t-)=j\}} (dB^j(t) + \sum_{k\neq j}b^{jk}(t)\mu^{jk}dt)
+\end{split}
+\end{equation}
+
+\newpage
+
+\subsection{e - show that the dynamics of the predictable compensator of the reserve is given by}
+
+\begin{equation}
+\begin{split}
+d\Lambda^V (t) = \sum_j 1_{\{Z(t-)=j \}}(dV^j(t) + \sum_{k\neq j}\mu^{jk}(V^k(t)-V^j(t))dt
+\end{split}
+\end{equation}
+We get that $V(t)$ is, 
+
+\begin{equation}
+\begin{split}
+V(t) = \sum_j 1_{\{Z(t)=j\}}V^j(t)
+\end{split}
+\end{equation}
+Using integration by parts we get that,
+\begin{equation}
+\begin{split}
+dV(t) =  \sum_j (d1_{\{Z(t)=j\}}V^j(t) + 1_{\{Z(t-)=j\}}dV^j(t))
+\end{split}
+\end{equation}
+The next hint is, $1_{\{Z(t)=j\}}=1_{\{Z(0)=j\}} + N^k(t)-\sum_{k\neq j}N^{jk}(t)$.
+\begin{equation}
+\begin{split}
+dV(t) =  \sum_j (d1_{\{Z(0)=j\}}V^j(t) + dN^k(t)V^j(t)-\sum_{k\neq j}dN^{jk}(t)V^j(t) + 1_{\{Z(t-)=j\}}dV^j(t))
+\end{split}
+\end{equation}
+We know, that the only one state can be one, which means, when $dN^k$ is one, the policy is in state $k$, why $V^j=V^k$. Further more, the $1_{\{Z(0)=j\}}$ is one, if we start in state $j$. but the initial value of $V^j(0) = 0$, if we state that there will be now payments before policy starts. Thus the above equation can be written.
+\begin{equation}
+\begin{split}
+dV(t) =  \sum_j (dN^k(t)V^k(t)-\sum_{k\neq j}dN^{jk}(t)V^j(t) + 1_{\{Z(t-)=j\}}dV^j(t))
+\end{split}
+\end{equation}
+from here we insert the known intensity process (prop. 12.9 \cite{jl}) for $dN^j$ (transitions into k) and $dN^{jk}$ (transitions from j to k), which also is the only parts, we need for $dV(t)$ to be its own intensity process.
+\begin{equation}
+\begin{split}
+d\Lambda^V(t) =  \sum_j (\sum_{k\neq j}\mu^{jk}(t)1_{\{Z(t-)=j\}}V^k(t)-\sum_{k\neq j}\mu^{jk}(t)1_{\{Z(t-)=j\}}V^j(t) + 1_{\{Z(t-)=j\}}dV^j(t))
+\end{split}
+\end{equation}
+Isolating $1_{\{Z(t-)=j\}}$ and combining $\sum_{k\neq j}\mu^{jk}(t)$ we get
+
+\begin{equation}
+\begin{split}
+d\Lambda^V(t) =  \sum_j 1_{\{Z(t-)=j\}}(\sum_{k\neq j}\mu^{jk}(t)(V^k(t) - V^j(t)) + dV^j(t))
+\end{split}
+\end{equation}
+
+\newpage
+
+\subsection{f - Argue that from the expression below one can obtain the dynamics of the state-wise reserve derived in question (c)}
+
+\begin{equation}
+\begin{split}
+d\Lambda^B(t) + d\Lambda^V(t) = r(t)V(t)dt
+\end{split}
+\end{equation}
+Inserting replacing intensity process with their equations we get.
+\begin{equation}
+\begin{split}
+\sum_j1_{\{Z(t-)=j\}} (dB^j(t) + \sum_{k\neq j}b^{jk}(t)\mu^{jk}dt)
++ \\
+\sum_j 1_{\{Z(t-)=j\}}(\sum_{k\neq j}\mu^{jk}(t)(V^k(t) - V^j(t)) + dV^j(t)) \\
+= r(t)V(t)dt
+\end{split}
+\end{equation}
+Using 17 $r(t)V(t) = r(t)V^j(t)dt \sum_j 1_{\{Z(t)=j\}}$, arguing that $1_{\{Z(t)=j\}}dt$ could be written as $1_{\{Z(t-)=j\}}$ due to continuity, and dividing with $\sum_j 1_{\{Z(t-)=j\}}$ on both sides we get
+\begin{equation}
+\begin{split}
+(dB^j(t) + \sum_{k\neq j}b^{jk}(t)\mu^{jk}dt)
++ \\
+(\sum_{k\neq j}\mu^{jk}(t)(V^k(t) - V^j(t)) + dV^j(t)) \\
+= r(t)V^j(t)
+\end{split}
+\end{equation}
+Isolating $dV^j(t)$ we get
+\begin{equation}
+\begin{split}
+dV^j(t) \\
+= r(t)V^j(t) - (dB^j(t) + \sum_{k\neq j}b^{jk}(t)\mu^{jk}dt) \\
+- (\sum_{k\neq j}\mu^{jk}(t)(V^k(t) - V^j(t))
+\end{split}
+\end{equation}
+Combining $\sum_{k\neq j}\mu^{jk}(t)$ we get
+\begin{equation}
+\begin{split}
+dV^j(t) 
+= r(t)V^j(t) - (dB^j(t) + \sum_{k\neq j}\mu^{jk}(t)(b^{jk}(t) + V^k(t) - V^j(t))
+\end{split}
+\end{equation}
+
+\newpage
+
+\begin{thebibliography}{9}
+
+\bibitem{jl}
+  Jesper Lund Pedersen.
+  \textit{Stochastic Processes in Life Insurance: The Dynamic Approach}.
+  Department of Mathematical Sciences.
+
+\end{thebibliography}
+
+
+\end{document}
