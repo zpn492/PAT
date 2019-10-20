@@ -169,7 +169,7 @@ Assume $V^{(2)}(t)$ has an intensity function $\lambda^{(2)}(t)$. Show that
 
 \begin{equation}
 \begin{split}
-\lambda^{(2)}(t) + \sum_j 1_{\{Z(t-) = j\}}(2V^j(t)b^j(t) + \sum_{k \neq j}(b^{jk}(t) + 2V^k(2))b^{jk}(t)\mu^{jk}(t)) = 2r(t)V^{(2)}(t)
+ 2r(t)V^{(2)}(t) = \lambda^{(2)}(t) + \sum_j 1_{\{Z(t-) = j\}}(2V^j(t)b^j(t) + \sum_{k \neq j}(b^{jk}(t) + 2V^k(t))b^{jk}(t)\mu^{jk}(t))
 \end{split}
 \end{equation}
 The right-handside of 1.C is a martingale known from 14.4. For the third part on the left-handside of 1.C, we have $\int_0^{t-} {e^{-\int_0^s {r(v) dv}}dB(s)}) e^{\int_0^t r(v)dv} (dB(t) + dV(t) - r(t)V(t)dt)$, $dB(t) + dV(t) - r(t)V(t)dt$ is martingale known from 14.4/14.5. Taking a function on it keeps it a martingale. The part $\int_0^{t-} {e^{-\int_0^s {r(v) dv}}dB(s)} $ is left-continuous, hence predictable.  Subtract a martingale on both sides of the equality sign, sets the right-handside to zero, and removes the third part on the left-handside.
@@ -233,10 +233,10 @@ dV_j^{(2)}(t) & =
  & - \sum_{k \neq j} \mu^{jk}(t) (b^{jk(2)}(t) + 2b^{jk}V^k(t) + V^{k(2)}(t) - V^{j(2)}(t)) \\ 
 \end{split}
 \end{equation}
-By the assignment $R^{jk}(t) = b_j(t) + V^k - V^j$. And using $(a+b-c)^2 = a^2 + b^2 - c^2 + 2ab -2ac - 2bc$ We get $R^{jk(2)}(t)$ as
+By the assignment $R^{jk}(t) = b_j(t) + V^k(t) - V^j(t)$. And using $(a+b-c)^2 = a^2 + b^2 - c^2 + 2ab -2ac - 2bc$ We get $R^{jk(2)}(t)$ as
 \begin{equation}
 \begin{split}
-R^{jk(2)}(t) = b^{jk(2)}(t) + V^{k(2)}(t) - V^{j(2)}(t) + 2b^{jk}V^k - 2b^{jk}V^j - 2V^kV^j
+R^{jk(2)}(t) = b^{jk(2)}(t) + V^{k(2)}(t) - V^{j(2)}(t) + 2b^{jk}V^k(t) - 2b^{jk}(t)V^j(t) - 2V^k(t)V^j(t)
 \end{split}
 \end{equation}
 \begin{equation}
@@ -281,12 +281,21 @@ df^j(t) & = r(t)f^j(t) - b^j(t) - g^j(t)c_j(t)
 \end{split}
 \end{equation}
 
+\begin{equation}
+\begin{split}
+dg^j(t) & = (q^j(t) + \sum_{k\neq j}
+\mu^{jk}(t) q^{jk}(t)) g^j(t) -q^j(t) \\
+& - \sum_{k\neq j}(1-q^{jk}(t))\mu^{jk}(t)(\frac{q^{jk}(t)}{1-q^{jk}(t)}+g^k(t)-g^j(t))
+\end{split}
+\end{equation}
+
 Compute f(t) and g(t) in the survival model with two states, alive(0) and dead(1).
+Where we know from the assignment, that transitions $q^{01}(t) = 0$ for all $t$ and assume, that the insurance company which issues the policy has no future liabilities within state of death(1). Why $g^1(t) = 0$ and $f^1(t) = 0$. for all $t$
+
 \begin{equation}
 \begin{split}
 df^0(t) & = r(t)f^0(t) - b^0(t) - g^0(t)c_0(t) 
 \\ & - \sum_{k\neq j} \mu^{01}(b^{01}(t) + c^{01}(t)g^1(t) + f^1(t) - f^0(t))
-\\ c_{01}(t) & = -(b^{01}(t) + V^{1*}(t) - V^{0*}(t))
 \end{split}
 \end{equation}
 
@@ -298,7 +307,6 @@ df^0(t) & = r(t)f^0(t) - b^0(t) - g^0(t)c_0(t)
 \\ & - \mu^{01}(b^{01}(t) + c^{01}(t)g^1(t) + f^1(t) - f^0(t))
 \end{split}
 \end{equation}
-Assume, that the insurance company which issues the policy has no future liabilities within state of death(1). Why $g^1(t) = 0$ and $f^1(t) = 0$. 
 
 \begin{equation}
 \begin{split}
@@ -306,7 +314,7 @@ df^0(t) & = r(t)f^0(t) - b^0(t) - g^0(t)c_0(t) - \mu^{01}b^{01}(t) + \mu^{01}f^0
 \\ & = (r(t) + \mu(t))f^0(t) - b^0(t) - g^0(t)c_0(t) - \mu^{01}(t)b^{01}(t)
 \end{split}
 \end{equation}
-
+Use Calculus 10.3.1.
 \begin{equation}
 \begin{split}
 f^0(t) & = \int_t^n e^{-\int_t^s(r(v)+\mu(v))dv} (b^0(s) + g^0(s)c_0(s) + \mu^{01}(s)b^{01}(s))ds
@@ -317,15 +325,6 @@ Where $f^0(n) = 0$.
 
 \begin{equation}
 \begin{split}
-dg^j(t) & = (q^j(t) + \sum_{k\neq j}
-\mu^{jk}(t) q^{jk}(t)) g^j(t) -q^j(t) \\
-& - \sum_{k\neq j}(1-q^{jk}(t))\mu^{jk}(t)(\frac{q^{jk}(t)}{1-q^{jk}(t)}+g^k(t)-g^j(t))
-\end{split}
-\end{equation}
-
-We know, that transitions $q^{01}(t) = 0$ for all $t$ and $g^1(t) = 0$ for all $t$
-\begin{equation}
-\begin{split}
 dg^0(t) & = (q^0(t) + 
 \mu^{01}(t) q^{01}(t)) g^0(t) -q^0(t) \\
 & - (1-q^{01}(t))\mu^{01}(t)(\frac{q^{01}(t)}{1-q^{01}(t)}+g^1(t)-g^0(t)) \\
@@ -333,14 +332,14 @@ dg^0(t) & = (q^0(t) +
 & = (q^0(t) + \mu^{01}(t))\mu^{01}(t)) g^0(t) -q^0(t) - \mu^{01}(t)q^{01}(t) 
 \end{split}
 \end{equation}
-
+Use Calculus 10.3.1.
 \begin{equation}
 \begin{split}
 g^0(t) = \int_t^n e^{-\int_t^s(q^0(v) + \mu^{01}(v))dv} q^0(s)ds
 \end{split}
 \end{equation}
 
-Where $q^j(t)$ $0 <= q^{jk}(t) < 1$
+Where $g^0(n)$ = 0.  $q^j(t)$ and $0 <= q^{jk}(t) < 1$ are continuous functions.
 
 \newpage
 

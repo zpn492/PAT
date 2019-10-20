@@ -2,8 +2,8 @@ This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Arch Linux) (prelo
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**AssignmentLIV2.tex
-(./AssignmentLIV2.tex
+**AssignmentLIVGeneral.tex
+(./AssignmentLIVGeneral.tex
 LaTeX2e <2018-12-01>
 (/usr/share/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2018/09/03 v1.4i Standard LaTeX document class
@@ -119,8 +119,9 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 730.
 \mathdisplay@stack=\toks20
 LaTeX Info: Redefining \[ on input line 2844.
 LaTeX Info: Redefining \] on input line 2845.
-) (./AssignmentLIV2.aux)
-\openout1 = `AssignmentLIV2.aux'.
+)
+(./AssignmentLIVGeneral.aux)
+\openout1 = `AssignmentLIVGeneral.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 13.
 LaTeX Font Info:    ... okay on input line 13.
@@ -135,100 +136,27 @@ LaTeX Font Info:    ... okay on input line 13.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 13.
 LaTeX Font Info:    ... okay on input line 13.
 \c@lstlisting=\count109
+ [1
 
-[1
-
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
-Overfull \hbox (10.7635pt too wide) detected at line 140
-[]
- []
-
-
-Overfull \hbox (5.8433pt too wide) in paragraph at lines 140--142
-\OT1/cmr/m/n/10 cause N only counts 1, if in state $\OML/cmm/m/it/10 k \OMS/cms
-y/m/n/10 6\OT1/cmr/m/n/10 = \OML/cmm/m/it/10 j$\OT1/cmr/m/n/10 . Use that $[][]
- \OML/cmm/m/it/10 b[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 t\OT1/cmr/m/n/10 ) = [][
-] [][] \OML/cmm/m/it/10 b[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 t\OT1/cmr/m/n/10 )
-$.
- []
-
-
-Overfull \hbox (67.32231pt too wide) detected at line 153
-[]
- []
-
-[4]
-Overfull \hbox (55.33948pt too wide) detected at line 163
-[]
- []
-
-[5]
-Overfull \hbox (28.02847pt too wide) detected at line 174
-[]
- []
-
-
-Overfull \hbox (45.24849pt too wide) detected at line 182
-[]
- []
-
-
-Overfull \hbox (45.24849pt too wide) detected at line 190
-[]
- []
-
-
-Overfull \hbox (2.85568pt too wide) in paragraph at lines 192--194
-\OT1/cmr/m/n/10 have $\OML/cmm/m/it/10 dN[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 t\
-OT1/cmr/m/n/10 )$ with an in-ten-sity pro-cess by propo-si-tion 12.9 $[][] \OML
-/cmm/m/it/10 ^^V[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 t\OT1/cmr/m/n/10 )1[]$.
- []
-
-
-Overfull \hbox (78.65169pt too wide) detected at line 201
-[]
- []
-
-
-Overfull \hbox (38.16035pt too wide) detected at line 206
-[]
- []
-
-[6] [7]
-Overfull \hbox (18.7034pt too wide) detected at line 241
-[]
- []
-
-
-Overfull \hbox (24.78381pt too wide) detected at line 265
-[]
- []
-
-[8] [9] [10] [11] (./AssignmentLIV2.aux) ) 
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] (./AssignmentLIVGenera
+l.aux) ) 
 Here is how much of TeX's memory you used:
- 2580 strings out of 492623
- 33619 string characters out of 6135668
- 108081 words of memory out of 5000000
- 6521 multiletter control sequences out of 15000+600000
- 9061 words of font info for 33 fonts, out of 8000000 for 9000
+ 2577 strings out of 492623
+ 33630 string characters out of 6135668
+ 98081 words of memory out of 5000000
+ 6518 multiletter control sequences out of 15000+600000
+ 8300 words of font info for 30 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 27i,17n,32p,578b,217s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7.
-pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/shar
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/
-share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmsy7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on AssignmentLIV2.pdf (11 pages, 165154 bytes).
+ 27i,6n,32p,216b,217s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/
+share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmr17.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmti10.pfb>
+Output written on AssignmentLIVGeneral.pdf (2 pages, 65521 bytes).
 PDF statistics:
- 96 PDF objects out of 1000 (max. 8388607)
- 68 compressed objects within 1 object stream
+ 31 PDF objects out of 1000 (max. 8388607)
+ 21 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
